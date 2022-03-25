@@ -1,24 +1,13 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Board from "./components/Board";
 
 function App() {
+  const columnNames = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+  //automatically create array of 0-9 using Array, and increment every value by 1, so the rows start from 1
+  const rowNames = Array.from(Array(10).keys()).map((item) => item + 1);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Board columns={columnNames} rows={rowNames} />
     </div>
   );
 }
