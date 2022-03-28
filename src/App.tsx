@@ -1,13 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { CellData } from "./classes/CellData";
 import Board from "./components/Board";
+import { shipBattleship, shipDestroyer } from "./ships";
+import { createCells, placeShip } from "./utils/logic";
 
 function App() {
-  const columnNames = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
-  //automatically create array of 0-9 using Array, and increment every value by 1, so the rows start from 1
-  const rowNames = Array.from(Array(10).keys()).map((item) => item + 1);
+  const [playerBoard, setPlayerBoard] = useState<CellData[]>([]);
+
+  const setupPlayerBoard = () => {
+    setPlayerBoard(createCells());
+  };
+
+  const placeShipBtn = () => {
+    const ships = [shipDestroyer, shipBattleship];
+    //make copy of board. Spread operator does not do deep copy
+    const playerBoardCopy = playerBoard.map((item) =>
+      JSON.parse(JSON.stringify(item))
+    );
+    placeShip(ships[0], playerBoardCopy);
+    setPlayerBoard(playerBoardCopy);
+  };
+
+  useEffect(() => {
+    setupPlayerBoard();
+  }, []);
+
   return (
     <div>
-      <Board columns={columnNames} rows={rowNames} />
+      <button onClick={placeShipBtn}>place ship</button>
+      <Board cells={playerBoard} />
     </div>
   );
 }

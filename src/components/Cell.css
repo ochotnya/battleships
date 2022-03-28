@@ -8,3 +8,12 @@
   background-color: rgb(37, 176, 231);
   font-size: small;
 }
+
+.cell-with-boat {
+  background-color: rgb(49, 49, 49);
+  color: white;
+}
+
+.cell-hit {
+  border: 2px solid red;
+}

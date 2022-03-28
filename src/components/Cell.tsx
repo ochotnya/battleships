@@ -1,11 +1,20 @@
 import React from "react";
+import { CellData } from "../classes/CellData";
 import "./Cell.css";
 
 interface ICell {
-  name: string;
+  cellData: CellData;
 }
 function Cell(props: ICell) {
-  return <div className="cell">{props.name}</div>;
+  return (
+    <div
+      className={
+        "cell" +
+        (props.cellData.isShip ? " cell-with-boat" : "") +
+        (props.cellData.isHit ? " cell-hit" : "")
+      }
+    ></div>
+  );
 }
 
 export default Cell;
