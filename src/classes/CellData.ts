@@ -1,9 +1,11 @@
 import { IDataCell } from "../interfaces/IDataCell";
+import { Ship } from "./Ship";
 
 export class CellData {
   isShip: boolean;
   isHit: boolean;
   hideShip: boolean;
+  shipRef?: Ship;
   readonly column: number;
   readonly row: number;
 

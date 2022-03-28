@@ -15,5 +15,13 @@
 }
 
 .cell-hit {
-  border: 2px solid red;
+  border: 10px solid red;
+}
+
+.cell-miss {
+  border: 10px solid rgb(65, 0, 170);
+}
+
+.cell-sink {
+  border: 10px solid rgb(240, 243, 35);
 }

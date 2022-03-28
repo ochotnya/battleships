@@ -1,8 +1,5 @@
 import { CellData } from "../classes/CellData";
-import { Point } from "../classes/Point";
-import { IBoard } from "../interfaces/IBoard";
-import { IDataCell } from "../interfaces/IDataCell";
-import { IShip } from "../interfaces/IShip";
+import { Ship } from "../classes/Ship";
 
 const createCells = () => {
   let cells: CellData[] = [];
@@ -44,12 +41,11 @@ const getNextCell = (
   }
 };
 
-const placeShip = (ship: IShip, boardData: CellData[]) => {
+const placeShip = (ship: Ship, boardData: CellData[]) => {
   let shipCells = [];
   const maxAttempts = 20;
 
   for (let index = 0; index < maxAttempts; index++) {
-    console.log("Starting");
     //initialize array of cells to assign
     shipCells = [];
     //get random cell which is not marked as ship
@@ -63,7 +59,7 @@ const placeShip = (ship: IShip, boardData: CellData[]) => {
     const dirVertical = Math.random() < 0.5; //random true/false
 
     //check next cells depending on direction and ship size
-    for (let index = 0; index < ship.size; index++) {
+    for (let index = 0; index < ship.size - 1; index++) {
       const nextCell = getNextCell(
         boardData,
         dirVertical,
@@ -73,13 +69,13 @@ const placeShip = (ship: IShip, boardData: CellData[]) => {
       else shipCells.push(undefined);
     }
 
-    console.log("test: ", shipCells);
     //if every item in shipCells is defined and there is no item that already is a ship, set isShip for every item. It will update board data by reference. Set index to max to exit the loop
     if (!shipCells.includes(undefined)) {
       index = maxAttempts;
       shipCells.forEach((item) => {
         if (item !== undefined) {
           item.isShip = true;
+          item.shipRef = ship;
         }
       });
     }
