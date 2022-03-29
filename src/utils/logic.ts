@@ -84,4 +84,9 @@ const placeShip = (ship: Ship, boardData: CellData[]) => {
   }
 };
 
+const autoShot = (board: CellData[]) => {
+  const boardCopy = board.map((item) => JSON.parse(JSON.stringify(item)));
+
+  return boardCopy;
+};
 export { placeShip, createCells };

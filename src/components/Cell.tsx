@@ -3,6 +3,7 @@ import { CellData } from "../classes/CellData";
 import "./Cell.css";
 
 interface ICell {
+  id: string;
   cellData: CellData;
   updater: (data: CellData) => void;
 }
@@ -26,6 +27,7 @@ function Cell(props: ICell) {
   }
   return (
     <div
+      id={props.id}
       onClick={clickHandler}
       className={
         "cell" +
@@ -36,9 +38,7 @@ function Cell(props: ICell) {
         (miss ? " cell-miss" : "") +
         (sink ? " cell-sink" : "")
       }
-    >
-      {}
-    </div>
+    ></div>
   );
 }
 

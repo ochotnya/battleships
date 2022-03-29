@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CellData } from "./classes/CellData";
 import Board from "./components/Board";
 import { Ship } from "./classes/Ship";
@@ -7,8 +7,12 @@ import "./App.css";
 import EndScreen from "./components/EndScreen";
 var p1Ships = [new Ship(4), new Ship(4), new Ship(5)];
 var p2Ships = [new Ship(4), new Ship(4), new Ship(5)];
+var player2AvailableTargets = Array.from(Array(100).keys()).map(
+  (item) => item + 1
+);
 
 function App() {
+  const playerBoardRef = useRef(null);
   const [playerBoard, setPlayerBoard] = useState<CellData[]>([]);
   const [enemyBoard, setEnemyBoard] = useState<CellData[]>([]);
   const [p1Score, setP1Score] = useState(0);
@@ -46,6 +50,9 @@ function App() {
 
   useEffect(() => {
     const initializeBoards = () => {
+      player2AvailableTargets = Array.from(Array(100).keys()).map(
+        (item) => item + 1
+      );
       p1Ships = [new Ship(4), new Ship(4), new Ship(5)];
       p2Ships = [new Ship(4), new Ship(4), new Ship(5)];
       setPlayerBoard(placeShips(createCells(), p1Ships));
@@ -62,8 +69,25 @@ function App() {
     if (destroyedShips1 === 3 || destroyedShips2 === 3) setEndGame(true);
   }, [destroyedShips1, destroyedShips2]);
 
+  const autoShot = () => {
+    //randomly select target
+    const itemIndex = Math.floor(
+      Math.random() * (player2AvailableTargets.length - 1)
+    );
+
+    //parse target id
+    const targetID = "playerBoard" + player2AvailableTargets[itemIndex];
+
+    //remove target from list, so computer wouldn't choose the same target twice
+    player2AvailableTargets.splice(itemIndex, 1);
+
+    //find element on screen and trigger click event
+    const target = document.getElementById(targetID);
+    target?.click();
+  };
   return (
     <div className="App">
+      <button onClick={autoShot}>AutoShot</button>
       {endGame && (
         <EndScreen
           win={destroyedShips1 === 3}
@@ -75,6 +99,7 @@ function App() {
           <div>
             <p>My board. My score: {p1Score}</p>
             <Board
+              id="playerBoard"
               cells={playerBoard}
               hideShips={false}
               update={updatePlayerCell}
@@ -83,6 +108,7 @@ function App() {
           <div>
             <p>Enemy board. Enemy score: {p2Score}</p>
             <Board
+              id="enemyBoard"
               cells={enemyBoard}
               hideShips={true}
               update={updateEnemyCell}
