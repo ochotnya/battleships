@@ -9,11 +9,13 @@ interface ICell {
 function Cell(props: ICell) {
   const [miss, setMiss] = useState(false);
   const clickHandler = () => {
-    if (props.cellData.isShip) {
-      props.cellData.shipRef?.takeDamage();
-      props.cellData.isHit = true;
-      props.updater(props.cellData);
-    } else setMiss(true);
+    if (!props.cellData.isHit) {
+      if (props.cellData.isShip) {
+        props.cellData.shipRef?.takeDamage();
+        props.cellData.isHit = true;
+        props.updater(props.cellData);
+      } else setMiss(true);
+    }
   };
 
   const shipRef = props.cellData.shipRef;
