@@ -3,15 +3,17 @@ import { CellData } from "./classes/CellData";
 import Board from "./components/Board";
 import { Ship } from "./classes/Ship";
 import { createCells, placeShip } from "./utils/logic";
-
-const p1Ships = [new Ship(4), new Ship(4), new Ship(5)];
-const p2Ships = [new Ship(4), new Ship(4), new Ship(5)];
+import "./App.css";
+import EndScreen from "./components/EndScreen";
+var p1Ships = [new Ship(4), new Ship(4), new Ship(5)];
+var p2Ships = [new Ship(4), new Ship(4), new Ship(5)];
 
 function App() {
   const [playerBoard, setPlayerBoard] = useState<CellData[]>([]);
   const [enemyBoard, setEnemyBoard] = useState<CellData[]>([]);
   const [p1Score, setP1Score] = useState(0);
   const [p2Score, setP2Score] = useState(0);
+  const [endGame, setEndGame] = useState(false);
 
   const destroyedShips1 = p2Ships.filter((ship) => ship.hp === 0).length;
   const destroyedShips2 = p1Ships.filter((ship) => ship.hp === 0).length;
@@ -42,28 +44,52 @@ function App() {
     return boardCopy;
   };
 
-  const initializeBoards = () => {
-    setPlayerBoard(placeShips(createCells(), p1Ships));
-    setEnemyBoard(placeShips(createCells(), p2Ships));
-  };
-
   useEffect(() => {
-    initializeBoards();
-  }, []);
+    const initializeBoards = () => {
+      p1Ships = [new Ship(4), new Ship(4), new Ship(5)];
+      p2Ships = [new Ship(4), new Ship(4), new Ship(5)];
+      setPlayerBoard(placeShips(createCells(), p1Ships));
+      setEnemyBoard(placeShips(createCells(), p2Ships));
+    };
+    if (!endGame) initializeBoards();
+  }, [endGame]);
 
   //update points
   useEffect(() => {
     setP1Score(destroyedShips1);
     setP2Score(destroyedShips2);
+
+    if (destroyedShips1 === 3 || destroyedShips2 === 3) setEndGame(true);
   }, [destroyedShips1, destroyedShips2]);
 
   return (
-    <div>
-      <p>My board. My score: {p1Score}</p>
-      <Board cells={playerBoard} hideShips={false} update={updatePlayerCell} />
-      <hr />
-      <p>Enemy board. Enemy score: {p2Score}</p>
-      <Board cells={enemyBoard} hideShips={true} update={updateEnemyCell} />
+    <div className="App">
+      {endGame && (
+        <EndScreen
+          win={destroyedShips1 === 3}
+          newGameAction={() => setEndGame(false)}
+        />
+      )}
+      {!endGame && (
+        <div className="game-screen">
+          <div>
+            <p>My board. My score: {p1Score}</p>
+            <Board
+              cells={playerBoard}
+              hideShips={false}
+              update={updatePlayerCell}
+            />
+          </div>
+          <div>
+            <p>Enemy board. Enemy score: {p2Score}</p>
+            <Board
+              cells={enemyBoard}
+              hideShips={true}
+              update={updateEnemyCell}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
