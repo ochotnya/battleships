@@ -7,10 +7,6 @@ export class Ship {
   }
 
   takeDamage() {
-    console.log("SHOT");
     if (this.hp > 0) this.hp -= 1;
-
-    if (this.hp === 0) console.log("SINK!");
-    console.log(this.hp);
   }
 }
