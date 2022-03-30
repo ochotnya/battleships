@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CellData } from "./classes/CellData";
 import Board from "./components/Board";
 import { Ship } from "./classes/Ship";
@@ -12,7 +12,6 @@ var player2AvailableTargets = Array.from(Array(100).keys()).map(
 );
 
 function App() {
-  const playerBoardRef = useRef(null);
   const [playerBoard, setPlayerBoard] = useState<CellData[]>([]);
   const [enemyBoard, setEnemyBoard] = useState<CellData[]>([]);
   const [p1Score, setP1Score] = useState(0);
