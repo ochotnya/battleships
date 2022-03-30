@@ -5,14 +5,14 @@ const createCells = () => {
   let cells: CellData[] = [];
 
   //automatically create array of 0-9 using Array, and increment every value by 1, so the rows start from 1
-  const columnNames = Array.from(Array(10).keys()).map((item) => item + 1);
-  const rowNames = Array.from(Array(10).keys()).map((item) => item + 1);
+  const columns = Array.from(Array(10).keys()).map((item) => item + 1);
+  const rows = Array.from(Array(10).keys()).map((item) => item + 1);
 
-  for (let indexColumn = 0; indexColumn < columnNames.length; indexColumn++) {
-    for (let indexRow = 0; indexRow < rowNames.length; indexRow++) {
+  for (let indexColumn = 0; indexColumn < columns.length; indexColumn++) {
+    for (let indexRow = 0; indexRow < rows.length; indexRow++) {
       const newCell = new CellData({
-        column: columnNames[indexColumn],
-        row: rowNames[indexRow],
+        column: columns[indexColumn],
+        row: rows[indexRow],
         isHit: false,
         isShip: false,
         hideShip: false,
@@ -84,9 +84,4 @@ const placeShip = (ship: Ship, boardData: CellData[]) => {
   }
 };
 
-const autoShot = (board: CellData[]) => {
-  const boardCopy = board.map((item) => JSON.parse(JSON.stringify(item)));
-
-  return boardCopy;
-};
-export { placeShip, createCells };
+export { placeShip, createCells, getNextCell };
