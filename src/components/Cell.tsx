@@ -15,9 +15,9 @@ function Cell(props: ICell) {
     if (!props.cellData.isHit) {
       if (props.cellData.isShip) {
         props.cellData.shipRef?.takeDamage();
-        props.cellData.isHit = true;
         props.updater(props.cellData);
       } else setMiss(true);
+      props.cellData.isHit = true;
       props.autoshot?.(); //execute automatic shot in response if function is defined
     }
   };
