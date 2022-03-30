@@ -5,6 +5,7 @@ import { Ship } from "./classes/Ship";
 import { createCells, placeShip } from "./utils/logic";
 import "./App.css";
 import EndScreen from "./components/EndScreen";
+
 var p1Ships = [new Ship(4), new Ship(4), new Ship(5)];
 var p2Ships = [new Ship(4), new Ship(4), new Ship(5)];
 var player2AvailableTargets = Array.from(Array(100).keys()).map(
@@ -87,7 +88,6 @@ function App() {
 
   return (
     <div className="App">
-      <button onClick={autoShot}>AutoShot</button>
       {endGame && (
         <EndScreen
           win={destroyedShips1 === 3}
@@ -96,7 +96,7 @@ function App() {
       )}
       {!endGame && (
         <div className="game-screen">
-          <div>
+          <div className="board-disable">
             <p>My board. My score: {p1Score}</p>
             <Board
               id="playerBoard"

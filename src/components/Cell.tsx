@@ -10,6 +10,7 @@ interface ICell {
 }
 function Cell(props: ICell) {
   const [miss, setMiss] = useState(false);
+
   const clickHandler = () => {
     if (!props.cellData.isHit) {
       if (props.cellData.isShip) {
@@ -17,7 +18,7 @@ function Cell(props: ICell) {
         props.cellData.isHit = true;
         props.updater(props.cellData);
       } else setMiss(true);
-      props.autoshot?.(); //execute automatic enemy shot if function is defined
+      props.autoshot?.(); //execute automatic shot in response if function is defined
     }
   };
 
