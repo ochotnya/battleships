@@ -84,6 +84,7 @@ function App() {
     const target = document.getElementById(targetID);
     target?.click();
   };
+
   return (
     <div className="App">
       <button onClick={autoShot}>AutoShot</button>
@@ -111,6 +112,7 @@ function App() {
               cells={enemyBoard}
               hideShips={true}
               update={updateEnemyCell}
+              autoshot={autoShot}
             />
           </div>
         </div>

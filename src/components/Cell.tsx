@@ -6,6 +6,7 @@ interface ICell {
   id: string;
   cellData: CellData;
   updater: (data: CellData) => void;
+  autoshot?: () => void;
 }
 function Cell(props: ICell) {
   const [miss, setMiss] = useState(false);
@@ -16,6 +17,7 @@ function Cell(props: ICell) {
         props.cellData.isHit = true;
         props.updater(props.cellData);
       } else setMiss(true);
+      props.autoshot?.(); //execute automatic enemy shot if function is defined
     }
   };
 

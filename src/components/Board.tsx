@@ -8,6 +8,7 @@ export interface IBoard {
   cells: CellData[];
   hideShips: boolean;
   update: (data: CellData) => void;
+  autoshot?: () => void;
 }
 function Board(props: IBoard) {
   let cells = [];
@@ -15,6 +16,7 @@ function Board(props: IBoard) {
     item.hideShip = props.hideShips;
     return (
       <Cell
+        autoshot={props.autoshot}
         cellData={item}
         key={index}
         updater={props.update}
