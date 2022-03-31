@@ -1,7 +1,5 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import App from "../App";
-import { CellData } from "../classes/CellData";
 import { Ship } from "../classes/Ship";
 import Board from "../components/Board";
 import { createCells } from "../utils/logic";
