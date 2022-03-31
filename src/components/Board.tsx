@@ -24,7 +24,11 @@ function Board(props: IBoard) {
       />
     );
   });
-  return <div className="board">{cells}</div>;
+  return (
+    <div className="board" data-testid={props.id}>
+      {cells}
+    </div>
+  );
 }
 
 export default Board;

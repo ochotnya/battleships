@@ -31,6 +31,7 @@ function Cell(props: ICell) {
   return (
     <div
       id={props.id}
+      data-testid={props.id}
       onClick={clickHandler}
       className={
         "cell" +
