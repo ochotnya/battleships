@@ -8,6 +8,8 @@ interface ICell {
   updater: (data: CellData) => void;
   autoshot?: () => void;
 }
+
+const columns = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 function Cell(props: ICell) {
   const [miss, setMiss] = useState(false);
 
@@ -42,7 +44,9 @@ function Cell(props: ICell) {
         (miss ? " cell-miss" : "") +
         (sink ? " cell-sink" : "")
       }
-    ></div>
+    >
+      {columns[props.cellData.column - 1] + props.cellData.row}
+    </div>
   );
 }
 

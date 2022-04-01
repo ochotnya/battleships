@@ -8,8 +8,9 @@ const createCells = () => {
   const columns = Array.from(Array(10).keys()).map((item) => item + 1);
   const rows = Array.from(Array(10).keys()).map((item) => item + 1);
 
-  for (let indexColumn = 0; indexColumn < columns.length; indexColumn++) {
-    for (let indexRow = 0; indexRow < rows.length; indexRow++) {
+  // for (let indexColumn = 0; indexColumn < columns.length; indexColumn++) {
+  for (let indexRow = 0; indexRow < rows.length; indexRow++) {
+    for (let indexColumn = 0; indexColumn < columns.length; indexColumn++) {
       const newCell = new CellData({
         column: columns[indexColumn],
         row: rows[indexRow],
